@@ -324,7 +324,7 @@ public class EventoController {
 		Usuario user = new Usuario();
 
 		user = ur.findByEmail(nome);
-		System.out.println(user.getRole());
+		
 		return user;
 	}
 
