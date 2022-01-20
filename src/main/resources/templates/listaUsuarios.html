@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>AppEventos | Usuários</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+		crossorigin="anonymous"></script>
+<link rel="icon" href="data:,">
+
+</head>
+
+<body>
+
+
+
+
+	<header class="py-3 bg-dark border-bottom">
+		<div class="container d-flex flex-wrap justify-content-center">
+			<a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-calendar-event"
+					viewBox="0 0 16 16">
+					<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+					<path
+						d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+				</svg>
+				<span class="fs-4" style="padding-left: 3%; color: white;"> AppEventos</span>
+			</a>
+			<ul class="nav">
+				<li class="nav-item"><a href="#" th:text="${user}" class="nav-link text-white px-2"></a></li>
+				<li class="nav-item"><a href="/logout" class="btn btn-outline-danger">Sair</a></li>
+			</ul>
+
+		</div>
+	</header>
+	<nav class="py-2 bg-dark  border-bottom">
+		<div class="container d-flex flex-wrap">
+			<ul class="nav me-auto">
+				<li class="nav-item"><a href="/" class="nav-link text-white px-2 active"
+						aria-current="page">Home</a>
+				</li>
+				<li class="nav-item"><a href="/cadastrarEvento" class="nav-link text-white px-2">Cadastar
+						Evento</a></li>
+						<li class="nav-item"><a th:href="${link}" th:text="${texto}" class="nav-link text-white px-2"></a></li>
+
+			</ul>
+			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post">
+				<div class="input-group mb-0">
+					<input type="text" class="form-control" name="nome" th:value="${termoDeBusca}"
+						placeholder="Nome do evento">
+					<button class="btn btn-outline-secondary" type="submit">Buscar</button>
+				</div>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container py-3">
+		<h1>Lista de usuários</h1>
+		<a href="/cadastrarEvento" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+				height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path
+					d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+			</svg> Adicionar administrador</a>
+			
+		<table class="table table-striped table-hover" >
+			<thead>
+				<tr>
+
+					<th scope="col">Nome</th>
+					<th scope="col">Email</th>
+					<th scope="col">Função</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+
+					<!--@{/{varivel}(varivel = ${variavel.valor})} Spring Variáveis ​​de caminho com Thymeleaf-->
+					<td> <span th:text="${user.nome}"></span></td>
+					<td><span th:text="${user.email}"></span></td>
+					<td><span th:text="${user.role}"></span></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+							<a th:href="@{/deletarUsuario/(usuario = ${user.email}) }"
+								class="btn btn-danger"><span><svg xmlns="http://www.w3.org/2000/svg" width="16"
+										height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+										<path
+											d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+										<path fill-rule="evenodd"
+											d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+									</svg> Deletar</span></a>
+						</div>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</body>
+
+</html>

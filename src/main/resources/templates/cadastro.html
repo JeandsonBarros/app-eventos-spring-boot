@@ -1,0 +1,75 @@
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>EventoApp</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+		crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+
+
+
+	<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog"
+		id="modalSignin">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content rounded-5 shadow">
+				<div class="modal-header p-5 pb-4 border-bottom-0">
+					<!-- <h5 class="modal-title">Modal title</h5> -->
+					<h2 class="fw-bold mb-0">Cadastre-se gratuitamente</h2>
+
+					<a href="/" class="btn-close"></a>
+				</div>
+
+				<div class="modal-body p-5 pt-0">
+					<th:block th:include="mensagemValidacao"></th:block>
+					<form class="" method="post">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control rounded-4" name="nome" id="floatingInput"
+								placeholder="exemplo">
+							<label for="floatingInput">Nome</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control rounded-4" name="email" id="floatingInput"
+								placeholder="email@exemplo.com">
+							<label for="floatingInput">Email</label>
+						</div>
+
+						<div class="form-floating mb-3">
+							<input type="password" class="form-control rounded-4" name="senha" id="floatingPassword"
+								placeholder="Senha">
+							<label for="floatingPassword">Senha</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="password" class="form-control rounded-4" name="confirmaSenha"
+								id="floatingPassword" placeholder="Confirmar senha">
+							<label for="floatingPassword">Confirmar senha</label>
+						</div>
+						<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Cadastrar</button>
+						<small class="text-muted">Ao clicar em Inscrever-se, você concorda com os termos de uso.</small>
+						<hr class="my-4">
+						<a href="/" class="w-100 btn btn-lg btn-primary">Entrar</a>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+
+</html>
