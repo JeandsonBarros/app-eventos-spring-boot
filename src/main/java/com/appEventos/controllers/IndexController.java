@@ -40,7 +40,7 @@ public class IndexController {
 			return "redirect:/cadastro";
 		}
 		if(ur.findByEmail(usuario.getEmail())!=null) {
-			attributes.addFlashAttribute("mensagem", "Esse email já foi cadastrado!");
+			attributes.addFlashAttribute("mensagem", "Este email já foi cadastrado!");
 			return "redirect:/cadastro";
 		}
 		
