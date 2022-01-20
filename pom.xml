@@ -84,10 +84,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				 <configuration>
-                <source>3.8.1</source>
-                <target>3.8.1</target>
-            </configuration>
+				
 				
 			</plugin>
 		</plugins>
