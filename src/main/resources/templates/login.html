@@ -3,7 +3,10 @@
 
 
 <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
 	<title>AppEventos | Login</title>
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
@@ -32,8 +35,8 @@
 <body>
 
 	<main>
-		<div class="container py-4">
-			<header class="pb-3 mb-4 border-bottom">
+		<div class="shadow container py-4">
+			<header class=" pb-3 mb-4 border-bottom">
 				<a href="/" class="d-flex align-items-center text-dark text-decoration-none">
 					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
 						class="bi bi-calendar-event" viewBox="0 0 16 16">
@@ -46,15 +49,11 @@
 				</a>
 			</header>
 
-			<div class="container col-xl-10 col-xxl-8 px-4 py-5">
-				<div class="row align-items-center g-lg-5 py-5">
+			<div>
+				<div class=" row align-items-center g-lg-5 py-5">
 					<div class="col-lg-7 text-center text-lg-start">
 						<h1 class="display-4 fw-bold lh-1 mb-3">Sistema para gerenciamento de eventos
 						</h1>
-						<p class="col-lg-10 fs-4">AppEventos fornece recursos que permitem a você gerenciar eventos,
-							entre esses recursos estão a possibilidade de criar, editar, listar, e excluir eventos além
-							de poder, adicionar e gerenciar a lista dos participantes.
-							A ferramenta também dá outras opções para facilitar o gerenciamento.</p>
 					</div>
 					<div class="col-md-10 mx-auto col-lg-5">
 						<div style="color: red;" th:if="${param.error}">
@@ -63,7 +62,7 @@
 						<div th:if="${param.logout}">
 							Deslogado
 						</div>
-						<form class="p-4 p-md-5 border rounded-3 bg-light" th:action="@{/login}" method="post">
+						<form class="shadow p-4 p-md-5 border rounded-3 bg-light" th:action="@{/login}" method="post">
 							<h2 style="text-align: center;">Login</h2>
 							<p></p>
 							<div class="form-floating mb-3">
@@ -98,14 +97,17 @@
 				<div class="row featurette">
 					<div class="col-md-7">
 						<h2 class="featurette-heading">Listagem de eventos já cadastrados.</h2>
+						
+					</div>
+
+					<div class="col-md-2">
+
+						
+						<img th:src="@{/1.png}" alt="Minha Figura"  style="height: 13rem; width: 23rem;">
+
 
 					</div>
-					<div class="col-md-5">
-
-						<img th:src="@{/1.png}" alt="Minha Figura" width="470" height="260">
-
-
-					</div>
+					
 				</div>
 
 				<hr class="featurette-divider">
@@ -114,11 +116,12 @@
 					<div class="col-md-7">
 						<h2 class="featurette-heading"><span class="text-muted">Cadastro de novos eventos e seus
 								detalhes.</span></h2>
+						
 					</div>
 					<div class="col-md-5">
 
-						<img th:src="@{/2.jpg}" alt="Minha Figura" width="500" height="290">
-
+						
+						<img th:src="@{/2.jpg}" alt="Minha Figura"  style="height: 13rem; width: 23rem;">
 
 
 					</div>
@@ -128,12 +131,13 @@
 
 				<div class="row featurette">
 					<div class="col-md-7">
-						<h2 class="featurette-heading">Destalhes de eventos, adição, gerenciamento e listagem<br> de
-							participantes.
+						<h2 class="featurette-heading">Destalhes de eventos, adição, gerenciamento e listagem de
+							participantes.</h2>
+						
 					</div>
 					<div class="col-md-5">
 
-						<img th:src="@{/3.png}" alt="Minha Figura" width="500" height="290">
+						<img th:src="@{/3.png}" alt="Minha Figura"  style="height: 13rem; width: 23rem;">
 
 					</div>
 				</div>
@@ -142,13 +146,13 @@
 
 				<!-- /END THE FEATURETTES -->
 
-			</div><!-- /.container -->
+			</div>
 
 
 			<!-- FOOTER -->
 			<footer class="container">
 				<p class="float-end"><a href="#">De volta ao topo</a></p>
-				<p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+				
 			</footer>
 	</main>
 

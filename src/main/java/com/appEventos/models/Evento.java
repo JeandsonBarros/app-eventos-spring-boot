@@ -42,6 +42,12 @@ public class Evento implements Serializable{
 	public Usuario getUsuario() {
 		return usuario;
 	}
+	public List<Convidado> getConvidados() {
+		return convidados;
+	}
+	public void setConvidados(List<Convidado> convidados) {
+		this.convidados = convidados;
+	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

@@ -3,6 +3,8 @@
 
 <head>
 	<title>AppEventos</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
@@ -16,116 +18,168 @@
 		crossorigin="anonymous"></script>
 
 	<link rel="icon" href="data:,">
+
+
 </head>
 
 <body>
 
 
-	<header class="py-3 bg-dark border-bottom">
-		<div class="container d-flex flex-wrap justify-content-center">
+	<nav class="py-2 bg-dark border-bottom">
+		<div class="container d-flex flex-wrap">
+
 			<a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-calendar-event"
+				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-calendar-event"
 					viewBox="0 0 16 16">
 					<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
 					<path
 						d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
 				</svg>
-				<span class="fs-4" style="padding-left: 3%; color: white;"> AppEventos</span>
+				<span class="fs-4" style="padding-left: 3%; padding-right: 3%; color: white;"> AppEventos</span>
 			</a>
 			<ul class="nav">
-				<li class="nav-item"><a href="#" th:text="${user}" class="nav-link text-white px-2"></a></li>
-				<li class="nav-item"><a href="/logout" class="btn btn-outline-danger">Sair</a></li>
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-white" data-bs-toggle="modal"
+						data-bs-target="#edita" aria-expanded="false">
+						<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white"
+							class="bi bi-person-circle" viewBox="0 0 16 16">
+							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+							<path fill-rule="evenodd"
+								d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+						</svg>
+						<span th:text="${nome}"></span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+							<path
+								d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+						</svg>
+
+					</a></li>
+				<li class="nav-item"><a href="/logout" class="nav-link text-white px-2">| Sair</a></li>
 			</ul>
-
 		</div>
-	</header>
-	<nav class="py-2 bg-dark  border-bottom">
-		<div class="container d-flex flex-wrap">
+	</nav>
+	<header class="shadow py-3 mb-4 border-bottom">
+		<div class="container d-flex flex-wrap justify-content-center">
 			<ul class="nav me-auto">
-
-				
-				<li class="nav-item"><a href="/" class="nav-link text-white px-2 active" aria-current="page">Home</a>
+				<li class="nav-item"><a href="/" class="nav-link link-dark px-2 active" aria-current="page">Home</a>
 				</li>
-				<li class="nav-item"><a href="/cadastrarEvento" class="nav-link text-white px-2">Cadastar
-						Evento</a></li>
-				<li class="nav-item"><a th:href="${link}" th:text="${texto}" class="nav-link text-white px-2"></a></li>
+				<li class="nav-item"><a href="/cadastrarEvento" class="nav-link link-dark px-2">Adicionar evento</a>
+				</li>
+				<li class="nav-item"><a th:href="${link}" th:text="${texto}" class="nav-link link-dark px-2"></a></a>
+				</li>
 
-				
 			</ul>
 			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post">
+
 				<div class="input-group mb-0">
 					<input type="text" class="form-control" name="nome" th:value="${termoDeBusca}"
 						placeholder="Nome do evento">
 					<button class="btn btn-outline-secondary" type="submit">Buscar</button>
 				</div>
 			</form>
+
 		</div>
-	</nav>
+	</header>
 
-	<div class="container py-3">
-		<h1>Lista de eventos</h1>
-		<a href="/cadastrarEvento" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-				height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-				<path
-					d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-			</svg> Adicionar Evento</a>
-
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-
-					<th scope="col">Nome</th>
-					<th scope="col">Local</th>
-					<th scope="col">Data</th>
-					<th scope="col">Horário</th>
-					<th scope="col">Opções</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="evento : ${eventos}">
-
-					<!--@{/{varivel}(varivel = ${variavel.valor})} Spring Variáveis ​​de caminho com Thymeleaf-->
-					<td> <span th:text="${evento.nome}"></span></td>
-					<td><span th:text="${evento.local}"></span></td>
-					<td><span th:text="${evento.data}"></span></td>
-					<td><span th:text="${evento.horario}"></span></td>
-					<td>
-						<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-							<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo}) }" class="btn btn-success"><span><svg
-										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-										class="bi bi-info-square" viewBox="0 0 16 16">
-										<path
-											d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-										<path
-											d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-									</svg> Detalhes</span></a>
-							<a th:href="@{/editaEvento/{codigo}(codigo = ${evento.codigo}) }"
-								class="btn btn-warning"><span><svg xmlns="http://www.w3.org/2000/svg" width="16"
-										height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-										<path
-											d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-										<path fill-rule="evenodd"
-											d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-									</svg> Editar</span></a>
-
-							<a th:href="@{/deletarEvento/(codigo = ${evento.codigo}) }"
-								class="btn btn-danger"><span><svg xmlns="http://www.w3.org/2000/svg" width="16"
-										height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-										<path
-											d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-										<path fill-rule="evenodd"
-											d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-									</svg> Deletar</span></a>
+	<!-- Modal 1 -->
+	<th:block th:include="mensagemValidacao"></th:block>
+	<div class="modal fade" id="edita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Editar usuário</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="post" th:action="@{/editanomeuser}">
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Nome:</label>
+							<input type="text" th:value="${nome}" name="nome" class="form-control" id="recipient-name">
 						</div>
-					</td>
-				</tr>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</form>
+					<hr>
 
-			</tbody>
-		</table>
+					<form th:action="@{/editasenha}" method="post">
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Nova senha:</label>
+							<input type="password" name="novaSenha" class="form-control" id="recipient-name">
+						</div>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Confirmar nova senha:</label>
+							<input type="password" name="confirmaNovaSenha" class="form-control" id="recipient-name">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-bs-toggle="modal"
+								data-bs-target="#staticBackdrop" aria-expanded="false">Apagar conta</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 2 -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja pagar essa conta?</h5>
+					<button class="btn-close" onClick="history.go(0);" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Se fizer isso todos os seus dados serão apagados permanentemente!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" onClick="history.go(0);">Cancelar</button>
+					<a href="/deletarconta" class="btn btn-danger">Apagar</a>
+				</div>
+			</div>
+		</div>
 	</div>
 
 
+
+	<div class="container py-4">
+		<a href="/cadastrarEvento" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+			<path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+			<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+		  </svg>  Adionar evento</a>
+		  <p></p>
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			<div class="col" th:each="evento : ${eventos}">
+				<div
+					class="shadow-lg row g-0 border rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+					<div class=" col p-4 d-flex flex-column position-static" th:each="evento : ${evento}">
+						<h3 class="mb-0"><span th:text="${evento.nome}"></span></h3>
+						<div class="mb-1 text-muted">Data: <span th:text="${evento.data}"></div>
+						<div class="mb-1 text-muted">Local: <span th:text="${evento.local}"></span></div>
+						<div class="mb-1 text-muted">Horário: <span th:text="${evento.horario}"></span></div>
+						<p class="card-text mb-auto" th:text="${evento.descricao}"></p>
+						<div class="btn-group">
+							<a th:href="@{/evento/{codigo}(codigo = ${evento.codigo}) }" class="btn btn-dark"><span>
+									Detalhes</span></a>
+							<a th:href="@{/editaEvento/{codigo}(codigo = ${evento.codigo}) }"
+								class="btn btn-warning"><span> Editar</span></a>
+							<a th:href="@{/deletarEvento/(codigo = ${evento.codigo}) }" class="btn btn-danger">
+								Deletar</span></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		</div>
+	</div>
 
 </body>
 

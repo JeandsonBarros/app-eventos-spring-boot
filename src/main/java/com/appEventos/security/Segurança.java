@@ -44,7 +44,8 @@ public class Segurança extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/evento/**").hasAnyAuthority("USER", "ADMIN")
 		.antMatchers(HttpMethod.GET, "/evento/**").hasAnyAuthority("USER", "ADMIN")
 		.antMatchers(HttpMethod.POST, "/editaEvento/**").hasAnyAuthority("USER", "ADMIN")
-		.antMatchers(HttpMethod.GET, "/usuarios").hasAnyAuthority("ADMIN")
+		.antMatchers(HttpMethod.GET, "/usuarios/**").hasAnyAuthority("ADMIN")
+		.antMatchers(HttpMethod.POST, "/usuarios/**").hasAnyAuthority("ADMIN")
 		.and().formLogin().loginPage("/login")
 	    .defaultSuccessUrl("/", true)
 	    .failureUrl("/login?error=true")
@@ -56,7 +57,7 @@ public class Segurança extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("../mensagemValidacao", "../img/**");
+		web.ignoring().antMatchers("../mensagemValidacao", "../img/**", "dialog.html");
 	}
 
 }
