@@ -110,7 +110,7 @@ public class UserController {
 			use.setNome(nome);
 			ur.save(use);
 		}
-		return "redirect:/";
+		return "redirect:/seus-eventos";
 	}
 
 	@RequestMapping(value = "/editasenha", method = RequestMethod.POST)
@@ -118,7 +118,7 @@ public class UserController {
 			RedirectAttributes attributes) {
 		if (/* senhaAntiga.isEmpty()|| */ novaSenha.isEmpty() || confirmaNovaSenha.isEmpty()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/";
+			return "redirect:/seus-eventos";
 		}
 
 		Usuario newUser = getUser();
@@ -136,7 +136,7 @@ public class UserController {
 		// }else{
 		// attributes.addFlashAttribute("mensagem", "Senha errada!");
 		// }
-		return "redirect:/";
+		return "redirect:/seus-eventos";
 	}
 
 	@RequestMapping("/usuarios")
@@ -158,7 +158,7 @@ public class UserController {
 		
 	}
 
-	@RequestMapping(value="/usuarios/buscausuario", method = RequestMethod.POST)
+	@RequestMapping(value="/usuarios/buscausuario", method = RequestMethod.GET)
 	public ModelAndView bucaUsuarios(@RequestParam String nomeBusca) {
 		ModelAndView mv;
 

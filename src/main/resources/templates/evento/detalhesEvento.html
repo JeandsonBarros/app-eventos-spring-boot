@@ -2,292 +2,230 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>AppEventos | Detalhes Evento</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>AppEventos | Detalhes Evento</title>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
-		integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
-		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
-		crossorigin="anonymous"></script>
-	<link rel="icon" href="data:,">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link rel="icon" th:href="@{/logo.png}">
 
 </head>
 
 <body>
 
-	<nav class="py-2 bg-dark border-bottom">
-		<div class="container d-flex flex-wrap">
+<header th:insert="header :: header"></header>
 
-			<a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-calendar-event"
-					viewBox="0 0 16 16">
-					<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
-					<path
-						d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-				</svg>
-				<span class="fs-4" style="padding-left: 3%; padding-right: 3%; color: white;"> AppEventos</span>
-			</a>
-			<ul class="nav">
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-white" data-bs-toggle="modal"
-						data-bs-target="#edita" aria-expanded="false">
-						<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white"
-							class="bi bi-person-circle" viewBox="0 0 16 16">
-							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-							<path fill-rule="evenodd"
-								d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-						</svg>
-						<span th:text="${nome}"></span>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-							<path
-								d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-						</svg>
+<nav class="shadow py-3 mb-4 border-bottom nav nav-pills">
 
-					</a></li>
-				<li class="nav-item"><a href="/logout" class="nav-link text-white px-2">| Sair</a></li>
-			</ul>
-		</div>
-	</nav>
-	<header class="shadow py-3 mb-4 border-bottom">
-		<div class="container d-flex flex-wrap justify-content-center">
-			<ul class="nav me-auto">
-				<li class="nav-item"><a href="/" class="nav-link link-dark px-2 active" aria-current="page">Home</a>
-				</li>
-				<li class="nav-item"><a href="/cadastrarEvento" class="nav-link link-dark px-2">Adicionar evento</a>
-				</li>
-				<li class="nav-item"><a th:href="${link}" th:text="${texto}" class="nav-link link-dark px-2"></a></a>
-				</li>
+    <div class="container d-flex flex-wrap justify-content-center">
 
-			</ul>
-			
-				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post"
-					th:action="@{/evento/busca/{busca}(busca = ${evento.codigo})}">
+        <ul class="nav me-auto">
 
-					<div class="input-group mb-0">
-						<input type="text" class="form-control" name="nomeConvidado" placeholder="Nome do participante"
-							th:value="${termoDeBusca}">
-						<button class="btn btn-outline-secondary" type="submit">Buscar</button>
-					</div>
-				</form>
-			
-		</div>
-	</header>
+            <li class="nav-item"><a href="/" class="nav-link link-dark px-2 " aria-current="page">Home</a>
+            </li>
 
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <li class="nav-item"><a href="/cadastrarEvento" class="nav-link link-dark px-2">Adicionar evento</a>
+            </li>
 
-	</form>
-	</div>
+            <li class="nav-item"><a href="/seus-eventos" class="nav-link link-dark px-2 active">Seus eventos</a>
+            </li>
 
-	<!-- Modal 1 -->
-	<th:block th:include="mensagemValidacao"></th:block>
-	<div class="modal fade" id="edita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Editar usuário</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form method="post" th:action="@{/editanomeuser}">
-						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Nome:</label>
-							<input type="text" th:value="${nome}" name="nome" class="form-control" id="recipient-name">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary">Salvar</button>
-						</div>
-					</form>
-					<hr>
+            <li class="nav-item"><a th:href="${link}" th:text="${texto}" class="nav-link link-dark px-2"></a></a>
+            </li>
 
-					<form th:action="@{/editasenha}" method="post">
-						<!--<div class="mb-3">
-						<label for="recipient-name" class="col-form-label">Senha antiga:</label>
-						<input type="password" name="senhaAntiga" class="form-control" id="recipient-name">
-					</div>-->
-						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Nova senha:</label>
-							<input type="password" name="novaSenha" class="form-control" id="recipient-name">
-						</div>
-						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Confirmar nova senha:</label>
-							<input type="password" name="confirmaNovaSenha" class="form-control" id="recipient-name">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-								data-bs-target="#staticBackdrop">
-								Apagar Conta
-							</button>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary">Salvar</button>
-						</div>
-					</form>
-				</div>
+        </ul>
 
-			</div>
-		</div>
-	</div>
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get"
+              th:action="@{/evento/busca/{busca}(busca = ${evento.codigo})}">
 
-	<!-- Modal 2 -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja pagar essa conta?</h5>
-					<button class="btn-close" onClick="history.go(0);" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Se fizer isso todos os seus dados serão apagados permanentemente!
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" onClick="history.go(0);">Cancelar</button>
-					<a href="/deletarconta" class="btn btn-danger">Apagar</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="input-group mb-0">
+                <input type="text" class="form-control" name="nomeConvidado" placeholder="Nome do participante"
+                       th:value="${termoDeBusca}">
+                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</nav>
+
+<div th:insert="modais :: modais"></div>
+
+<!-- Modal 3 -->
+<div class="modal fade" id="addConvidado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Adicionar convidado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form class="col-sm-13" method="post" th:action="@{/evento/{codigo}(codigo = ${evento.codigo})}">
+
+                    <div class="mb-5">
+                        <label class="form-label">Nome:</label>
+                        <input type="text" class="form-control" name="nomeConvidado">
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="form-label">CPF:</label>
+                        <input type="text" class="form-control" id="cp" name="cpf">
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="form-label">E-mail:</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+
+                    <div class="modal-footer">
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+
+                    </div>
+
+                </form>
+
+            </div>
 
 
-	<!-- Modal 3 -->
-	<div class="modal fade" id="addConvidado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"> Adicionar convidado</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form class="col-sm-13" method="post" th:action="@{/evento/{codigo}(codigo = ${evento.codigo})}">
-						<div class="mb-5">
-							<label class="form-label">Nome:</label>
-							<input type="text" class="form-control" name="nomeConvidado">
-						</div>
-						<div class="mb-5">
-							<label class="form-label">CPF:</label>
-							<input type="text" class="form-control" id="cp" name="cpf">
-						</div>
-						<div class="mb-5">
-							<label class="form-label">E-mail:</label>
-							<input type="text" class="form-control" name="email">
-						</div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="mb-5 shadow container">
+
+    <a style="color:black;" href="/seus-eventos">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+             fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+    </a>
+
+    <div class="row mb-8">
+
+        <div class=" col-sm-4 themed-grid-col ">
+
+            <div class="col">
+
+                <h3>Detalhes do evento</h3>
+
+                <div
+                        class=" row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="shadow col p-4 d-flex flex-column position-static" th:each="evento : ${evento}">
+                        <h3 class="mb-0"><span th:text="${evento.nome}"></span></h3>
+                        <div class="mb-1 text-muted">Data: <span th:text="${evento.data}"></div>
+                        <div class="mb-1 text-muted">Local: <span th:text="${evento.local}"></span></div>
+                        <div class="mb-1 text-muted">Horário: <span th:text="${evento.horario}"></span></div>
+                        <p class="card-text mb-auto" th:text="${evento.descricao}"></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
 
 
-						<div class="modal-footer">
-							</button>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							<button type="submit" class="btn btn-primary">Adicionar</button>
-						</div>
-					</form>
-				</div>
+        <h3>Lista de participantes </h3>
 
-			</div>
-		</div>
-	</div>
+        <hr>
 
-	<div class="shadow container">
-		<a style="color:black;" href="/"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-				fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-				<path fill-rule="evenodd"
-					d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-			</svg></a>
+        <div class="col-sm-4">
 
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addConvidado"
+               aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                     fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Adionar participante
+            </a>
 
-		<div class="row mb-8">
-			<div class=" col-sm-4 themed-grid-col ">
-				<div class="col">
+        </div>
 
-					<h3>Detalhes do evento</h3>
+    </div>
 
-					<div
-						class=" row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-						<div class="shadow col p-4 d-flex flex-column position-static" th:each="evento : ${evento}">
-							<h3 class="mb-0"><span th:text="${evento.nome}"></span></h3>
-							<div class="mb-1 text-muted">Data: <span th:text="${evento.data}"></div>
-							<div class="mb-1 text-muted">Local: <span th:text="${evento.local}"></span></div>
-							<div class="mb-1 text-muted">Horário: <span th:text="${evento.horario}"></span></div>
-							<p class="card-text mb-auto" th:text="${evento.descricao}"></p>
+    <div style="overflow-x:auto;">
 
-						</div>
+        <table class="shadow table table-hover">
 
-					</div>
+            <thead>
 
-				</div>
-			</div>
+               <tr class="table table-dark">
+                   <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">E-mail</th>
+                   <th scope="col">Opções</th>
+                </tr>
 
-		</div>
-		<div class="row">
-		
-			
-				<h3>Lista de participantes </h3>
-				<hr>
-				<div class="col-sm-4">
-				<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addConvidado"
-					aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-						fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-						<path
-							d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-					</svg> Adionar participante</a>
-				</div>
-			
+            </thead>
 
-		</div>
+            <tbody>
 
-		<div style="overflow-x:auto;">
-			<table class="shadow table table-hover">
+            <tr th:each="convidado, iStat : ${convidados}">
 
-				<thead>
+                <th scope="row" th:text="${iStat.count}"></th>
+                <td th:text="${convidado.nomeConvidado}"></td>
+                <td th:text="${convidado.cpf}"></td>
+                <td th:text="${convidado.email}"></td>
+                <td>
+                    <div class="btn-group">
 
-					<tr class="table table-dark">
+                        <a th:href="@{/evento/{codigo}/editarParticipante/{id}(id = ${convidado.id}, codigo = ${evento.codigo})}"
+                           class="btn btn-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                 height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                            </svg>
+                        </a>
 
-						<th scope="col">#</th>
-						<th scope="col">Nome</th>
-						<th scope="col">CPF</th>
-						<th scope="col">E-mail</th>
-						<th scope="col">Opções</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="convidado, iStat : ${convidados}">
-						<th scope="row" th:text="${iStat.count}"></th>
-						<td th:text="${convidado.nomeConvidado}"></td>
-						<td th:text="${convidado.cpf}"></td>
-						<td th:text="${convidado.email}"></td>
-						<td>
-							<div class="btn-group">
-								<a th:href="@{/evento/{codigo}/editarParticipante/{id}(id = ${convidado.id}, codigo = ${evento.codigo})}"
-									class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-										height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-										<path
-											d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
-									</svg></a>
-								<a th:href="@{/deletarConvidado/(id = ${convidado.id}, codigo = ${evento.codigo}) }"
-									class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-										height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
-										<path
-											d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
-									</svg></a>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	</div>
+                        <a th:href="@{/deletarConvidado/(id = ${convidado.id}, codigo = ${evento.codigo}) }"
+                           class="btn btn-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                 height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                <path
+                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                            </svg>
 
+                        </a>
 
+                    </div>
 
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<footer th:insert="footer :: footer"></footer>
 
 </body>
-
 </html>

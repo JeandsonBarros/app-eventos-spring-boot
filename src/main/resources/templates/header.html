@@ -1,0 +1,50 @@
+<div th:fragment="header" class="py-2 bg-dark border-bottom">
+
+    <div class="container d-flex flex-wrap">
+
+        <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-calendar-event"
+                 viewBox="0 0 16 16">
+                <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                <path
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+            </svg>
+
+            <span class="fs-4" style="padding-left: 3%; padding-right: 3%; color: white;"> AppEventos</span>
+        </a>
+
+        <ul class="nav">
+
+            <li th:unless="${nome == 'anonymous'}" class="nav-item"><a href="#" class="nav-link px-2 text-white" data-bs-toggle="modal"
+                                    data-bs-target="#edita" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white"
+                     class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd"
+                          d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+
+                <span  th:text="${nome}"></span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+
+            </a>
+            </li>
+
+            <li th:if="${nome == 'anonymous'}" >
+                <a class="btn btn-primary"  href="/login" >Entrar</a>
+                <a class="btn btn-primary" href="/cadastro">Cadastre-se</a>
+            </li>
+
+            <li th:unless="${nome == 'anonymous'}" class="nav-item"><a href="/logout" class="nav-link text-white px-2">| Sair</a></li>
+
+        </ul>
+
+
+    </div>
+
+</div>

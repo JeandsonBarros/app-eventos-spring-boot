@@ -1,7 +1,11 @@
 package com.appEventos.controllers;
 
 import javax.validation.Valid;
+
+import com.appEventos.models.EventoPublico;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,9 @@ import com.appEventos.repository.ConvidadoRepository;
 import com.appEventos.repository.EventoRepository;
 import com.appEventos.repository.UsuarioRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class EventoController {
 
@@ -30,9 +37,87 @@ public class EventoController {
 	@Autowired
 	private UsuarioRepository ur;
 
-	/* =======================EventoController==================== */
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView listaAllEventos() {
+
+		List<Evento> eventos = er.findAll();
+		List<EventoPublico> eventoPublicos = new ArrayList<>();
+
+		eventos.forEach(evento -> {
+			var eventoPublico = new EventoPublico();
+			BeanUtils.copyProperties(evento, eventoPublico);
+			eventoPublico.setUsuario(evento.getUsuario().getNome());
+			eventoPublicos.add(eventoPublico);
+		});
+
+		// informar o local em que os dados vai ser renderizado
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("eventos", eventoPublicos);
+		mv.addObject("nome", getUser().getNome());
+
+		if (getUser().getRole().equals("ADMIN")) {
+			mv.addObject("link", "/usuarios");
+			mv.addObject("texto", "Listar usuários");
+		}
+
+		return mv;
+
+	}
+
+	// Busca eventos
+	@RequestMapping(value = "/buscar-evento", method = RequestMethod.GET)
+	public ModelAndView bucarEmTodosEventos(String nome) {
+
+		System.out.println(nome);
+
+		Iterable<Evento> eventos = er.findByNomeContaining(nome);
+
+		List<EventoPublico> eventoPublicos = new ArrayList<>();
+
+		eventos.forEach(evento -> {
+			var eventoPublico = new EventoPublico();
+			BeanUtils.copyProperties(evento, eventoPublico);
+			eventoPublico.setUsuario(evento.getUsuario().getNome());
+			eventoPublicos.add(eventoPublico);
+		});
+
+		// informar o local em que os dados vai ser renderizado
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("eventos", eventoPublicos);
+		mv.addObject("nome", getUser().getNome());
+		mv.addObject("termoDeBusca", nome);
+
+		if (getUser().getRole().equals("ADMIN")) {
+			mv.addObject("link", "/usuarios");
+			mv.addObject("texto", "Listar usuários");
+		}
+
+		return mv;
+
+	}
+
+	@RequestMapping(value = "/feed/evento/{codigo}", method = RequestMethod.GET)
+	public ModelAndView detalhesEnventoFeed(@PathVariable long codigo){
+
+		var evento = er.findByCodigo(codigo);
+		var eventoPublico = new EventoPublico();
+
+		BeanUtils.copyProperties(evento, eventoPublico);
+		eventoPublico.setUsuario(evento.getUsuario().getNome());
+
+		var mv = new ModelAndView("detalhesEventoPublico");
+		mv.addObject("evento", eventoPublico);
+		mv.addObject("nome", getUser().getNome());
+
+		if (getUser().getRole().equals("ADMIN")) {
+			mv.addObject("link", "/usuarios");
+			mv.addObject("texto", "Listar usuários");
+		}
+
+		return mv;
+	}
+
+	@RequestMapping(value = "/seus-eventos", method = RequestMethod.GET)
 	public ModelAndView listaEventos() {
 		/*
 		 * Iterable é uma interface que determina que uma lista pode ter seus elementos
@@ -42,7 +127,7 @@ public class EventoController {
 		Iterable<Evento> eventos = er.findByUsuario(getUser());
 
 		// informar o local em que os dados vai ser renderizado
-		ModelAndView mv = new ModelAndView("index");
+		ModelAndView mv = new ModelAndView("evento/seusEventos");
 		mv.addObject("eventos", eventos);
 		mv.addObject("nome", getUser().getNome());
 
@@ -56,13 +141,13 @@ public class EventoController {
 	}
 
 	// Busca eventos
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/seus-eventos/busca", method = RequestMethod.GET)
 	public ModelAndView bucaEventos(String nome) {
 
 		Iterable<Evento> eventos = er.findByNomeContainingAndUsuario(nome, getUser());
 
 		// informar o local em que os dados vai ser renderizado
-		ModelAndView mv = new ModelAndView("index");
+		ModelAndView mv = new ModelAndView("evento/seusEventos");
 		mv.addObject("eventos", eventos);
 		mv.addObject("nome", getUser().getNome());
 		mv.addObject("termoDeBusca", nome);
@@ -84,7 +169,6 @@ public class EventoController {
 		if (getUser().getRole().equals("ADMIN")) {
 			mv.addObject("link", "/usuarios");
 			mv.addObject("texto", "Listar usuários");
-
 		}
 
 		return mv;
@@ -93,7 +177,7 @@ public class EventoController {
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
 	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
 
-		if (result.hasErrors()) {
+		if (result.hasErrors() || evento.getDescricao().length()>255) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
 			return "redirect:/cadastrarEvento";
 		}
@@ -130,7 +214,7 @@ public class EventoController {
 
 	@RequestMapping(value = "/editaEvento/{codigo}", method = RequestMethod.POST)
 	public String salvaEditarEvento(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors()) {
+		if (result.hasErrors()  || evento.getDescricao().length()>255) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
 			return "redirect:/editaEvento/{codigo}";
 		}
@@ -157,7 +241,7 @@ public class EventoController {
 			}
 
 			er.delete(evento);
-			return "redirect:/";
+			return "redirect:/seus-eventos";
 		} else {
 			return "error404";
 		}
@@ -195,20 +279,29 @@ public class EventoController {
 
 	@RequestMapping(value = "/usuarios/eventosdeusuario", method = RequestMethod.GET)
 	public ModelAndView listaEventosDeUsuario(String usuario) {
-		ModelAndView mv;
 
-			Iterable<Evento> eventos = er.findByUsuario(ur.findByEmail(usuario));
+		Iterable<Evento> eventos = er.findByUsuario(ur.findByEmail(usuario));
 
-			// informar o local em que os dados vai ser renderizado
-			mv = new ModelAndView("index");
-			mv.addObject("eventos", eventos);
-			mv.addObject("nome", getUser().getNome());
+		List<EventoPublico> eventoPublicos = new ArrayList<>();
 
-			if (getUser().getRole().equals("ADMIN")) {
-				mv.addObject("link", "/usuarios");
-				mv.addObject("texto", "Listar usuários");
-			}
-			return mv;
+		eventos.forEach(evento -> {
+			var eventoPublico = new EventoPublico();
+			BeanUtils.copyProperties(evento, eventoPublico);
+			eventoPublico.setUsuario(evento.getUsuario().getNome());
+			eventoPublicos.add(eventoPublico);
+		});
+
+		// informar o local em que os dados vai ser renderizado
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("eventos", eventoPublicos);
+		mv.addObject("nome", getUser().getNome());
+
+		if (getUser().getRole().equals("ADMIN")) {
+			mv.addObject("link", "/usuarios");
+			mv.addObject("texto", "Listar usuários");
+		}
+
+		return mv;
 			
 	}
 
@@ -222,11 +315,17 @@ public class EventoController {
 		} else {
 			nome = use.toString();
 		}
+
 		Usuario user = new Usuario();
 
-		user = ur.findByEmail(nome);
-
-		return user;
+		if (!nome.equals("anonymousUser")) {
+			user = ur.findByEmail(nome);
+			return user;
+		}else {
+			user.setNome("anonymous");
+			user.setRole("anonymous");
+			return user;
+		}
 	}
 
 }

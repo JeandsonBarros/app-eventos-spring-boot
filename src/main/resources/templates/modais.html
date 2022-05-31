@@ -1,0 +1,91 @@
+<div th:fragment="modais">
+    <!-- Modal 1 -->
+    <th:block th:include="mensagemValidacao"></th:block>
+
+    <div class="modal fade" id="edita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form method="post" th:action="@{/editanomeuser}">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nome:</label>
+                            <input type="text" th:value="${nome}" name="nome" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+
+                    </form>
+
+                    <hr>
+
+                    <form th:action="@{/editasenha}" method="post">
+
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nova senha:</label>
+                            <input type="password" name="novaSenha" class="form-control" id="recipient-name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Confirmar nova senha:</label>
+                            <input type="password" name="confirmaNovaSenha" class="form-control" id="recipient-name">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop" aria-expanded="false">Apagar conta
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja pagar essa conta?</h5>
+                    <button class="btn-close" onClick="history.go(0);" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    Se fizer isso todos os seus dados serão apagados permanentemente!
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onClick="history.go(0);">Cancelar</button>
+                    <a href="/deletarconta" class="btn btn-danger">Apagar</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

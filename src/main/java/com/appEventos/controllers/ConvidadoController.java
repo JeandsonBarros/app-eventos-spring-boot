@@ -64,7 +64,7 @@ public class ConvidadoController {
 	}
 
 	// Busca participantes
-	@RequestMapping(value = "/evento/busca/{busca}", method = RequestMethod.POST)
+	@RequestMapping(value = "/evento/busca/{busca}", method = RequestMethod.GET)
 	public ModelAndView buscaParticipante(@PathVariable("busca") long busca, String nomeConvidado, String codigo) {
 		Evento evento = er.findByCodigo(busca);
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
