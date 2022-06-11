@@ -12,9 +12,9 @@ O objetivo do projeto é permitir a criação, listagem, adição, exclusão de 
 
 Exemplo:
 
-`spring.datasource.url=jdbc:mysql://localhost:3306/appeventos
-spring.datasource.username= root
-spring.datasource.password=  
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.database-platform = org.hibernate.dialect.MySQL8Dialect
-spring.jpa.generate-ddl=true`
+`spring.datasource.url=jdbc:mysql://localhost:3306/appeventos`
+`spring.datasource.username= root`
+`spring.datasource.password=`  
+`spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver`
+`spring.jpa.database-platform = org.hibernate.dialect.MySQL8Dialect`
+`spring.jpa.generate-ddl=true`
