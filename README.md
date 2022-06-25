@@ -6,6 +6,8 @@ Site para gerenciamento de eventos, desenvolvido com Spring Boot+BootsTrap.
 
 O objetivo do projeto é permitir a criação, listagem, adição, exclusão de eventos, manipulação dos convidados dos eventos e autenticação. 
 
+![Figure 1](./Captura.png)
+
 ## Orientação para execução
 
 É necessário a passar as informações de conexão do banco de dados no arquivo application.properties.
